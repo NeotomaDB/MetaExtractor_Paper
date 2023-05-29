@@ -1,0 +1,6 @@
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{figs_rev1/uncond_distribution_reference.png}
+\caption{ Caption here. Image from \cite{de2021direct}.}
+\label{fig:Figure1}
+\end{figure}

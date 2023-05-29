@@ -1,0 +1,88 @@
+---
+title: "Natural Language Processing and the xDeepDive Architecture for Article Recommendation"
+format:
+    pdf:
+        toc: true
+abstract:
+    Data repositories that rely on users to submit data will often have data holdings that are biased towards individuals who know about the data repository. Inequity in academic resources, and in knowledge networks within academia can mean that data resources that are open, may be magnifying these inequities since not all researchers will have access to the data repository. To help address this inequity we propose a service that can use article metadata to identify articles that may be well suited to the Neotoma Paleoecology Database. This will allow data curators to reach out to individual authors to solicit their contributions, acting as a form of outreach for the database, and helping to build a larger community of contributors to improve the breadth of data holdings within the database.
+author:
+    - name: Simon J Goring
+      orcid: 0000-0002-2700-4605
+      email: goring@wisc.edu
+      affiliations:
+        - name: University of Wisconsin - Madison; Department of Geography
+          address: 550 N Park St
+          city: Madison
+          state: WI
+          country: United States of America
+          postal-code: 53706
+        - name: University of Wisconsin - Madison; Center for Climatic Research
+          address: 1225 W Dayton St
+          city: Madison
+          state: WI
+          country: United States of America
+          postal-code: 53706
+    - name: Socorro Dominguez
+      email: sedv8808@ht-data.com
+      orcid: 0000-0002-7926-4935
+      affiliations:
+        - name: HT Data
+          city: Vancouver
+          state: BC
+          country: Canada
+    - name: Kelly Wu
+    - name: Ty Andrews
+    - name: Jenit Jain
+    - name: Shaun Hutchinson
+lang: en
+bibliography: bibliography.bib
+keywords:
+    - natural language processing
+    - Neotoma Paleoecology Database
+    - xDeepDive
+---
+
+# Introduction
+
+Community Curated Data Resources play an important role in managing and providing data to disciplinary research communities. In particular CCDRs such as Neotoma act as a nexus for education, research, outreach and community by serving as a focal point for the broader community [@goring2018nexus]. The Neotoma Paleoecology Database is a global data resource supporting paleoecological research [@williams2018neotoma]. We're building a tool that can scan article text to identify whether or not a paper is suited for inclusion to the Neotoma Paleoecology Database.
+
+# Methodology
+
+We're using NLP tools and a machine learning algorithm to identify suitability for a paper within Neotoma. From this we will then extract metadata to create a default object.
+
+# Algorithm and Implementation
+
+## Article relevance training
+
+We downloaded $n$ papers from PubMed using the pubmed API and a set of keywords that would be likely to include articles relevant to Neotoma, but also articles without direct relevance ("pollen", "archaeology", "'stone age'", "aerobiology", "allergies", "mastodon", "diatoms", "paleoecology", "space", "diatom AND paleoecology", "ostracode", "high resolution sediment"). We supplemented this list of articles with all articles within Neotoma that had an accompanying DOI. All articles were then hand-tagged (by SJG) using SMART () as either "Neotoma", "Not Neotoma" and "Maybe Neotoma". We used the "Maybe Neotoma" tag for articles that were likely to be of interest to the Neotoma Data Steward community, but were unlikely to be entered into Neotoma because the primary disciplinary community likely had a different data repository of record. For example, high resolution tephra-chronology is critical for chronology construction within Neotoma, but the primary repository of record is likely EarthChem.
+
+From the tagged articles we extracted metadata from CrossRef and PubMed to provide a more complete data object. This metadata excluded the use of the article fulltext since this would not be available for many legacy publications. Using an XXXX model on a set of publisher supplied features we then constructed the model to both predict article suitability, and also the obtain feature importance rankings for the article.
+
+# Results
+
+## Article Tagging
+
+The dataset is highly imbalanced. Of the $n$ total articles tagged, only $n_{2}$ articles were deemed suited for Neotoma, with $n_3$ identified as being "Maybe Neotoma" and $n_{4}$ being "Not Neotoma". This reflects the fact that paleoecology papers that include primary data represent only a small proportion of all articles published.
+
+## Article Relevance
+
+The final model was $x$% accurate, identifying stuff? Feature importance . . .
+
+# Conclusions
+
+
+# Acknowledgements
+
+
+# Code availability Section
+
+ * Contact: goring@wisc.edu
+ * Hardware requirements: IBM PC 8086 Processor with 1MB RAM and two 1.44MB Floppy Disks.
+ * Program language: Python
+ * Software required: ...
+ * Program size: ...
+
+The source codes are available for downloading at the link:
+https://github.com/NeotomaDB/MetaExtractor
+
+# References
