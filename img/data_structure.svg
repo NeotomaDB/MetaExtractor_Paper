@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="136.5155mm"
+   height="68.930962mm"
+   viewBox="0 0 136.5155 68.930962"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="data_structure.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.6751885"
+     inkscape:cx="255.19516"
+     inkscape:cy="136.10408"
+     inkscape:window-width="1920"
+     inkscape:window-height="1019"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Dot"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="5.6666665"
+       markerHeight="5.6666665"
+       viewBox="0 0 5.6666667 5.6666667"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         id="Dot1"
+         sodipodi:nodetypes="sssss" />
+    </marker>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect1390"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect1386"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-15.076506,-27.153691)">
+    <rect
+       style="fill:#ffffff;fill-opacity:0.875368;stroke:#000000;stroke-width:0.358666;stroke-linejoin:bevel;stroke-dasharray:none"
+       id="rect234"
+       width="59.011486"
+       height="63.940014"
+       x="15.255839"
+       y="27.333025" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:0.351406px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="15.29528"
+       y="39.789062"
+       id="text952"><tspan
+         sodipodi:role="line"
+         id="tspan950"
+         style="stroke-width:0.264583"
+         x="15.29528"
+         y="39.789062">Pa</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:4.23333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="17.941114"
+       y="34.375549"
+       id="text956"><tspan
+         sodipodi:role="line"
+         id="tspan954"
+         style="font-size:5.64444px;text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="34.375549">Publication Data</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="40.147163"
+         id="tspan958">DOI (pk)</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="45.438828"
+         id="tspan960">Title</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="50.730488"
+         id="tspan962">Authors</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="56.022152"
+         id="tspan1022">Subject</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="61.313812"
+         id="tspan1295">Keywords</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="66.605476"
+         id="tspan964">Abstract</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="71.897141"
+         id="tspan966">Journal Title</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="77.188797"
+         id="tspan1018">Language</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="82.480461"
+         id="tspan1020">Publication Date</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;stroke-width:0.264583"
+         x="17.941114"
+         y="87.772125"
+         id="tspan1734">. . .</tspan></text>
+    <g
+       id="g1305"
+       transform="translate(8.2103583)">
+      <rect
+         style="fill:#ffffff;fill-opacity:0.875368;stroke:#000000;stroke-width:0.252333;stroke-linejoin:bevel;stroke-dasharray:none"
+         id="rect234-3"
+         width="59.117817"
+         height="31.590544"
+         x="84.137672"
+         y="27.279858" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:4.23333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+         x="86.713829"
+         y="34.375549"
+         id="text956-6"><tspan
+           sodipodi:role="line"
+           id="tspan954-7"
+           style="font-size:5.64444px;text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="34.375549">Annotation Data</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="40.147163"
+           id="tspan958-5">DOI (fk)</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="45.438828"
+           id="tspan960-3">Annotation</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="50.730488"
+           id="tspan1020-2">Annotator</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="56.022152"
+           id="tspan1196">Annotation Date</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="61.313812"
+           id="tspan1190" /></text>
+    </g>
+    <g
+       id="g1315"
+       transform="translate(8.2103583)">
+      <rect
+         style="fill:#ffffff;fill-opacity:0.875368;stroke:#000000;stroke-width:0.252333;stroke-linejoin:bevel;stroke-dasharray:none"
+         id="rect234-3-7"
+         width="59.117817"
+         height="31.590544"
+         x="84.137672"
+         y="64.367943" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:4.23333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+         x="86.713829"
+         y="71.463638"
+         id="text956-6-0"><tspan
+           sodipodi:role="line"
+           id="tspan954-7-9"
+           style="font-size:5.64444px;text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="71.463638">Prediction Data</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="77.235252"
+           id="tspan958-5-3">DOI (fk)</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="82.526917"
+           id="tspan960-3-6">Prediction</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="87.818581"
+           id="tspan1020-2-0">Model Metadata</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="93.110237"
+           id="tspan1196-6">Prediction Date</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:start;text-anchor:start;stroke-width:0.264583"
+           x="86.713829"
+           y="98.401901"
+           id="tspan1190-2" /></text>
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Dot);marker-end:url(#Dot)"
+       d="m 74.421914,38.69341 c 5.945576,-0.0738 11.890893,-0.147592 17.835946,-0.221383"
+       id="path1384"
+       inkscape:path-effect="#path-effect1386"
+       inkscape:original-d="M 74.421914,38.69341 C 80.367493,38.619882 86.31281,38.546087 92.25786,38.472027"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Dot);marker-end:url(#Dot)"
+       d="M 92.238654,75.582403 C 86.312618,63.287128 80.386429,50.991536 74.460087,38.695626"
+       id="path1388"
+       inkscape:path-effect="#path-effect1390"
+       inkscape:original-d="M 92.238654,75.582403 C 86.312729,63.287074 80.38654,50.991483 74.460087,38.695626"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>
