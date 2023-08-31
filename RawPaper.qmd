@@ -66,9 +66,27 @@ We're using NLP tools and a machine learning algorithm to identify suitability f
 
 ![*Source and paths of primary data for the article relevance model. This pathway is scripted to support an itterative approach that allows us to rebuild the primary data object to be used for training. The dataset would be rebuilt as new articles are added to Neotoma, or if new blocks of articles are reviewed by a data steward or other researcher who hopes to discover new articles within a particular domain.*](img/MetaReview.png){100%}
 
-We downloaded $n$ papers from PubMed using the pubmed API and a set of keywords that would be likely to include articles relevant to Neotoma, but also articles without direct relevance ("pollen", "archaeology", "'stone age'", "aerobiology", "allergies", "mastodon", "diatoms", "paleoecology", "space", "diatom AND paleoecology", "ostracode", "high resolution sediment"). We supplemented this list of articles with all articles within Neotoma that had an accompanying DOI. All articles were then hand-tagged (by SJG) using SMART () as either "Neotoma", "Not Neotoma" and "Maybe Neotoma". We used the "Maybe Neotoma" tag for articles that were likely to be of interest to the Neotoma Data Steward community, but were unlikely to be entered into Neotoma because the primary disciplinary community likely had a different data repository of record. For example, high resolution tephrachronology is critical for chronology construction within Neotoma, but the primary repository of record is likely EarthChem.
+```{r PaperLoad, echo=FALSE}
+source("src/load_raw_csvs.R")
+paper_details <- load_raw_csvs()
 
-From the tagged articles we extracted metadata from CrossRef and PubMed to provide a more complete data object. This metadata excluded the use of the article fulltext since this would not be available for many legacy publications. For each model we apply an 80/20 trining-testing split to the data to limit the possibility of overfitting. A set of baseline models were then constructed using SciKitLearn in Python.
+source_counts <- paper_details %>%
+  select(-subject) %>%
+  unique() %>%
+  group_by(source) %>%
+  summarise(count = n())
+
+class_counts <- paper_details %>%
+  select(-subject) %>%
+  unique() %>%
+  group_by(label) %>%
+  summarise(count = n())
+
+```
+
+We downloaded `r source_counts$count[source_counts$source == "PubMed"]` papers from PubMed using the PubMed API ([@PubmedAPI]) and a set of keywords that would be likely to include articles relevant to Neotoma, but also articles without direct relevance ("pollen", "archaeology", "'stone age'", "aerobiology", "allergies", "mastodon", "diatoms", "paleoecology", "space", "diatom AND paleoecology", "ostracode", "high resolution sediment"). The list of PubMed sourced articles was supplemented by a list of all articles within Neotoma that had an accompanying DOI `r source_counts$count[source_counts$source == "Neotoma"]`. All articles were then hand-tagged (by SJG) using SMART [@chew2019smart] as either "Neotoma", "Not Neotoma" and "Maybe Neotoma". We used the "Maybe Neotoma" tag for articles that were likely to be of interest to the Neotoma Data Steward community, but were unlikely to be entered into Neotoma because the primary disciplinary community likely had a different data repository of record. For example, high resolution tephrachronology is critical for chronology construction within Neotoma, but the primary repository of record is likely EarthChem.
+
+From the tagged articles we extracted metadata from CrossRef and PubMed to provide a more complete data object. This metadata excluded the use of the article fulltext since this would not be available for many legacy publications. For each model we apply an 80/20 training-testing split to the data to limit the possibility of overfitting. A set of baseline models were then constructed using SciKitLearn in Python.
 
 All articles, with associated metadata were then stored in a Parquet formatted file in an AWS S3 bucket in the cloud. Each article included all associated metadata and the additional columns "relevant", "...".
 
@@ -100,27 +118,60 @@ paper_dataset <- get_datasetfile()
 
 Neotoma maintains an internal list of publications associated with the database datasets. The `r overall_stats$datasets` datasets within Neotoma are associated with `r overall_stats$publications` publications, spanning the last $y$ years. Of the records within Neotoma, many come from grey literature, or were added to the database before the wide use of DOIs for articles. As a result there is an element of incomplete data across the records. For this task, we limited the articles to only those with a recorded DOI in the database. This resulted in the inclusion of `r length(unique(paper_dataset$DOI))` articles from Neotoma. From there, an additional `r length(unique(paper_dataset$DOI))` articles were obtained and tagged to improve the model. These were tagged using the SMART [@chew2019smart] annotation tool, with classes "Neotoma", "Not Neotoma" and "Maybe Neotoma".
 
-The composite dataset is highly imbalanced. Of the `r length(unique(paper_dataset$DOI))` articles tagged (or already within Neotoma), only `r length(unique(paper_dataset$DOI[paper_dataset$prediction == 1]))` articles were classed as being appropriate for Neotoma, with $n_3$ identified as being "Maybe Neotoma" and $n_{4}$ were in the class "Not Neotoma". This reflects the fact that paleoecology papers including primary data represent only a small proportion of all articles published, even when subject and keyword searches focus on terms suited to the discipline.
+The composite dataset is highly imbalanced. Of the `r sum(class_counts$count)` articles tagged (or already within Neotoma), only `r class_counts$count[class_counts$label == "Neotoma"]` articles were classed as being appropriate for Neotoma, with `r class_counts$count[class_counts$label == "Maybe Neotoma"]` identified as being "Maybe Neotoma" and `r class_counts$count[class_counts$label == "Not Neotoma"]` were in the class "Not Neotoma". This reflects the fact that paleoecology papers including primary data represent only a small proportion of all articles published, even when subject and keyword searches focus on terms suited to the discipline.
 
-```{R journal_and_subject_skew, echo=FALSE, fig.cap="Placeholder for the paper figures showing barcharts of subject & journal titles."}
-journals <- paper_dataset %>%
-  select("container-title") %>%
-  group_by("container-title") %>%
-  summarise(n = n())
+```{R journal_and_subject_skew, echo=FALSE}
 
-ggplot(journals, aes(x = "container-title", y = n)) +
-  geom_bar(stat="identity")
+journal_container <- paper_details %>%
+  group_by(doi, journal, label, source) %>%
+  summarise(n = 1) %>%
+  group_by(journal, label, source) %>%
+  summarise(n = n()) %>%
+  group_by(label, source) %>%
+  mutate(prop = n / sum(n) * 100) %>%
+  ungroup() %>%
+  filter(prop > 1) %>%
+  arrange(desc(n)) %>%
+  na.omit()
 
-subjects <- paper_dataset %>%
-  select("subject") %>%
-  group_by("container-title") %>%
-  summarise(n = n())
-
-ggplot(journals, aes(x = "container-title", y = n)) +
-  geom_bar(stat="identity")
+subject_container <- paper_details %>% 
+  group_by(doi, subject, label, source) %>%
+  summarise(n = 1) %>%
+  group_by(subject, label, source) %>%
+  summarise(n = n()) %>%
+  group_by(label, source) %>%
+  mutate(prop = n / sum(n) * 100) %>%
+  ungroup() %>%
+  filter(prop > 1)
 ```
 
-Within the existing papers we see evidence of skew in journal representation within Neotoma and within the training set. Similarly, there is skew in the subject content between Neotoma articles and articles independently assessed. In part this is a result of bias in the PubMed journal holdings (not all Earth Science journals are indexed within PubMed), but it is also a result of skew in the source journals submitted to Neotoma.
+```{r subjectcontainer, echo=FALSE, fig.cap="Distribution of journal subjects identified from journals with articles contained in Neotoma and articles from the training set obtained from PubMed, expressed as percentages. The PubMed records show increased representation by subjects that are not traditionally 'ecology' based, including 'pollution', 'anthropology' and 'environmental chemistry'. These represent subjects associated with emerging constituent groups within Neotoma, and may indicate new sources and communities of data for Neotoma."}
+ggplot(subject_container %>% 
+        filter(label == "Neotoma" & n > 1),
+       aes(x = reorder(subject, -n), group = source, y = prop)) +
+  geom_bar(stat="identity") +
+  facet_wrap(~source) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 18)) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ylab("Percentage") +
+  xlab("Journal Subject")
+```
+
+```{r journalcontainer, echo=FALSE, fig.cap="Distribution of journal titles identified from articles contained in Neotoma and articles from the training set obtained from PubMed, expressed as percentages. The PubMed records show increased representation by multidisciplinary journals (PNAS, PLOS ONE, Nature Communications) as opposed to the articles sources from Neotoma."}
+ggplot(journal_container %>% 
+        filter(label == "Neotoma" & n > 1),
+       aes(x = reorder(journal, -n), group = source, y = prop)) +
+  geom_bar(stat="identity") +
+  facet_wrap(~source) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 18)) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ylab("Percentage") +
+  xlab("Journal")
+```
+
+Training data with broader coverage of subject matter and journals will be likely to capture a broader range of abstract construction and key terms, providing us with a more robust dataset for training. Within the existing papers we see evidence of skew in journal and subject representation within Neotoma and within the training set. In part this is a result of bias in the PubMed journal holdings (not all Earth Science journals are indexed within PubMed), but it is also a result of skew in the source journals submitted to Neotoma, and the community that Neotoma draws from. Quaternary Research, The Holocene and Quaternary Science Reviews represent the largest proportion for Neotoma records, but these primarily represent the traditional paleoecology community. Emerging research communities may be publishing in either multi-disciplinary journals (PLOS ONE, Scientific Reports), or may be publishing data papers directly (Data in Brief, Scientific Data).
 
 ## Model Building
 
@@ -131,7 +182,7 @@ Model building used nine models implemented from the Python ScikitLearn package 
 | Model | Model Class | Function Call |
 | ----- | ----------- | ------------- |
 | Dummy | Null | DummyClassifier() |
-| Logistic Regression | Linear Model | LogisticRegression(class_weight="balanced", max_iter=1000, ) |
+| Logistic Regression | Linear Model | LogisticRegression(class_weight="balanced", max_iter=1000) |
 | Decision Tree | Decision Tree | DecisionTreeClassifier(class_weight="balanced", max_depth=200) |
 | kNN | Nearest Neighbours | KNeighborsClassifier() |
 | Naive Bayes | Naive Bayes | BernoulliNB() |
@@ -159,7 +210,7 @@ TODO: Test representivity by comparing the distribution of journal articles by j
 
  * Contact: goring@wisc.edu
  * Hardware requirements: IBM PC 8086 Processor with 1MB RAM and two 1.44MB Floppy Disks.
- * Program language: Python, R
+ * Program language: Python (MetaReview package), R (this paper)
  * Software required: None
  * Program size: ...
 
